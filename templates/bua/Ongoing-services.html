@@ -1,0 +1,115 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/Ongoing services.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <title>Ongoing Services</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="buahome">
+      <div class="topnav">
+        <img
+        src="{% static 'images/logo.png' %}"
+        id="logo"
+      />
+      <div class="topnav-right">
+        <a
+          class="active"
+          href="{% url 'buaHome' bua.ID %}"
+          >Home</a
+        >
+        <a href="{% url 'buaLogin' %}"
+          >Log out</a
+        >
+       
+        <a href="{% url 'buaAvailableWork' bua.ID %}">Available Offers</a>
+        <a href="{% url 'buaCompletedWork' bua.ID %}">Completed Jobs</a>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <h2>Ongoing Services</h2>
+
+        <ul class="cards">
+          {% for w in work %}
+          <li>
+            <!-- Trigger/Open The Modal -->
+            <div class="card" >
+              <div class="card-header">Service {{w.ID}}</div>
+              <div class="card-body">
+                <p class="card-text">Service ID:{{w.ID}}</p>
+                <p class="card-text">Address:{{w.c.address}} ({{w.c.dis}})</p>
+                <p class="card-text">Customer ID:{{w.Customer_ID}}</p>
+                <p class="card-text">Customer Name:{{o.c.FirstName}}   {{w.c.LastName}}</p>
+                <p class="card-text">Customer Phone number:0{{w.c.PhoneNumber}}</p>
+                <p class="card-text">Customer Rating:{{w.c.rating}}</p>
+                <p class="card-text">Works:{% for o in w.work %} {{o}}, {% endfor %}</p>
+                <p class="card-text">Salary:{{w.Amount}}</p>
+                <a href="{% url 'buaServIssue' bua.ID %}?service={{w.ID}}" class="btn btn-danger">I HAVE A PROBELM</a>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <section class="footer">
+        <p>Follow us</p>
+        <ul class="icons">
+          <li class="icon">
+            <a href="https://facebook.com"
+              ><i class="fab fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://twitter.com"
+              ><i class="fab fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://google.com"
+              ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://linkedin.com"
+              ><i class="fab fa-linkedin" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://instagram.com"
+              ><i class="fab fa-instagram" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

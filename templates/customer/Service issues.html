@@ -1,0 +1,162 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/Service issues.css'%}" />
+    <title>Service Issues</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="customerhome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a
+            href="{% url 'customerHome' customer.ID %}"
+            >Home</a
+          >
+          <a
+          href="{% url 'customerLogin' %}"
+          >Log out</a
+        >
+        <a href="{% url 'customerOngoing' customer.ID %}">Ongoing Services</a>
+        <a href="{% url 'customerRequest' customer.ID  %}">Your Requests</a>
+        <a href="{% url 'customerCompleted' customer.ID %}">Completed Jobs</a>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <form
+          action="#"
+          id="ReportProblem100"
+          method="post"
+          onsubmit="return ValidateForm(this);"
+        >
+        {% csrf_token %}
+          <script type="text/javascript">
+            function ValidateForm(frm) {
+              if (frm.ProblemDescription.value == "") {
+                alert("Please enter describe the problem.");
+                frm.ProblemDescription.focus();
+                return false;
+              }
+              if (frm.ServiceID.value == "") {
+                alert("ID is required.");
+                frm.ServiceID.focus();
+                return false;
+              }
+              return true;
+            }
+          </script>
+          <h1 class="text">Report a problem</h1>
+          <label for="ServiceID" style="font-weight: bold" class="text"
+            >Service ID*:</label
+          ><br />
+          {% if service != -1 %}
+          <input
+            name="id"
+            type="text"
+            maxlength="60"
+            readonly
+            value="{{service}}"
+            style="width: 100%; max-width: 450px; background-color: bisque"
+          />
+          {% endif %}
+          {% if service == -1 %}
+          <input
+            name="id"
+            type="text"
+            maxlength="60"
+            style="width: 100%; max-width: 450px; background-color: bisque"
+          />
+          {% endif %}
+
+          <br /><br />
+          <label for="ProblemDescription" style="font-weight: bold" class="text"
+            >Describe the problem*:</label
+          ><br />
+          <div class="text">
+            Please provide as much detail as possible so we can better identify
+            the problem.
+          </div>
+          <br />
+          <textarea
+            name="des"
+            required
+            rows="7"
+            cols="40"
+            style="width: 100%; max-width: 450px; background-color: bisque"
+          ></textarea>
+          <br /><br />
+          
+          <br /><br />
+          <input
+            type="submit"
+            value="Submit"
+            style="background-color: antiquewhite"
+          />
+        </form>
+      </div>
+
+      <section class="footer">
+        <p style="color: antiquewhite">Follow us</p>
+        <ul class="icons">
+          <li class="icon">
+            <a href="https://facebook.com"
+              ><i class="fab fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://twitter.com"
+              ><i class="fab fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://google.com"
+              ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://linkedin.com"
+              ><i class="fab fa-linkedin" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://instagram.com"
+              ><i class="fab fa-instagram" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

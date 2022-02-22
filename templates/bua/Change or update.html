@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <!---<title> Sign Up Form for users. </title>--->
+    <link rel="stylesheet" href="{% static 'css/Change or update.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/alert.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+   
+    <div class="container" >
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      <div  class="title">Update Your Info</div>
+      
+     
+      <div  class="title">Update Your Info</div>
+
+      <div class="content">
+        <form action="#" method="POST">
+          {% csrf_token %}
+          <div class="user-details">
+            <div class="input-box" style="width: 80%;" >
+              <img alt="person" for="image" src="{% static 'images/default.jpg' %}" width="100" height="100" style="border-radius: 50%;" />
+              <span class="details" for="image">Image</span>
+              <input type="file" name="image" required />
+            </div>
+            <div class="input-box">
+              <span class="details">First Name</span>
+              <input type="text" name="FirstName" value="{{bua.FirstName}}" required />
+            </div>
+            <div class="input-box">
+              <span class="details">Last Name</span>
+              <input type="text" name="LastName" value="{{bua.LastName}}" required />
+            </div>
+            <div class="input-box">
+              <span class="details">Phone Number</span>
+              <input type="text" name="PhoneNumber" value="0{{bua.PhoneNumber}}" required />
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input type="text" name="Password" value="{{bua.Password}}" required />
+            </div>
+            {% if  passwordError %}
+            <div class="alert">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';"
+                >&times;</span
+              >
+              PASSWORD SHOULD MATCH
+            </div>
+            {% endif %}
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input type="password" name="confirmPass" value="{{bua.Password}}" required />
+            </div>
+          </div>
+            <div class="multi-selector">
+              <h3><p>Select the works you want to do</p></h3>
+              <!---------List of checkboxes and options----------->
+              <div class="list">
+                
+               {%  for t in task  %}
+               <label for="{{t.Service_ID}}" class="task">
+                <input type="checkbox" name="{{t.Service_ID}}" checked />
+                {{t.Name}}
+              </label>
+               {% endfor %}
+               {%  for t in rejectTask  %}
+               <label for="{{t.Service_ID}}" class="task">
+                <input type="checkbox" name="{{t.Service_ID}}"  />
+                {{t.Name}}
+                
+              </label>
+               {% endfor %}
+              </div>
+            </div>
+           
+        
+          <div class="gender-details">
+            <input type="radio" name="gender" id="dot-1" />
+            <input type="radio" name="gender" id="dot-2" />
+            <input type="radio" name="gender" id="dot-3" />
+            <span class="gender-title">Gender</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender">Male</span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender">Female</span>
+              </label>
+              <label for="dot-3">
+                <span class="dot three"></span>
+                <span class="gender">Prefer not to say</span>
+              </label>
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="Update" />
+          </div>
+          <div class="button">
+            <a class="btn btn-primary" href="{% url 'map' bua.ID %}" >UPDATE ADDRESS IN MAP</a>
+          </div>
+          <a href="{% url 'buaHome' bua.ID %}">Back to home</a>
+        </form>
+        <script type="text/javascript">
+          window.addEventListener('load', function() {
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    var img = document.querySelector('img');
+                    img.onload = () => {
+                        URL.revokeObjectURL(img.src);  // no longer needed, free memory
+                    }
+
+                    img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+                }
+            });
+          });
+        </script>
+         <script
+              src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+              integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+              crossorigin="anonymous"
+            ></script>
+            <script
+              src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+              integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+              crossorigin="anonymous"
+            ></script>
+            <script
+              src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+              integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+              crossorigin="anonymous"
+            ></script>
+            <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+          ></script>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+          ></script>
+          <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+          ></script>
+
+      </div>
+    </div>
+  </body>
+</html>

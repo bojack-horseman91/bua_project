@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Log in page for Employee</title>
+    <link rel="stylesheet" href="{% static 'css/login for all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}" />
+  </head>
+  <script>
+    history.pushState(null, null, null);
+    window.addEventListener("popstate", function () {
+      history.pushState(null, null, null);
+    });
+  </script>
+  <body>
+    <div class="center">
+      <h1>Login For Employee</h1>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="txt_field">
+          <input type="number" name='phoneNumber' required  placeholder="Wtire your phone Number"/>
+          <span></span>
+          <label>Phone Number</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="password" required />
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+        <input type="submit" value="Login" />
+        {% if error_Message %}
+        <div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';"
+            >&times;</span
+          >
+          UNIDENTIDIED
+        </div>
+        {% endif %}
+          
+          <a href="{% url 'home' %}">Back to home</a>
+      </form>
+    </div>
+  </body>
+</html>

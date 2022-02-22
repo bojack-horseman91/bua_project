@@ -1,0 +1,330 @@
+{%load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bua home.css' %}" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <title>BUA HOMEPAGE</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="buahome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a
+            class="active"
+            href="{% url 'home'  %}"
+            >Home</a
+          >
+          <a href="{% url 'buaLogin' %}"
+            >Log out</a
+          >
+          <a href="{% url 'buaOngoingWork' bua.ID %}">Ongoing Services</a>
+          <a href="{% url 'buaAvailableWork' bua.ID %}">Available Offers</a>
+          <a href="{% url 'buaCompletedWork' bua.ID %}">Completed Jobs</a>
+        </div>
+      </div>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
+        <a href="{% url 'buaProfile' bua.ID %}">Worker Profile</a>
+        <a href="{% url 'buaServIssue' bua.ID %}">Service Issues</a>
+        <a href="{% url 'buaTechIssue' bua.ID %}">Technical Issues</a>
+      </div>
+      <span style="color:white; font-size: 30px; cursor: pointer" onclick="openNav()"
+        >&#9776;</span
+      >
+
+      <ul id="ul_top_hypers">
+        <li class="a_top_hypers">
+          <h2>Last Completed Jobs</h2>
+
+          <ul>
+            {% for w in completed %}
+            
+          <li>
+            <!-- Trigger/Open The Modal -->
+            <button id="myBtn" class="btn">Service {{w.ID}}</button>
+            {% if w.rating == -1 %}
+            <h4>Give Rating</h4>
+            <form method="POST" action="{% url 'buaCompletedWork' bua.ID %}" >
+              {% csrf_token %}
+            <span class="star__container">
+             <input type="text" hidden name="trans" value="{{w.ID}}" >
+             <input type="text" hidden name="customer" value="{{w.customer.ID}}" >
+              <input
+                type="radio"
+                name="rating"
+                value="1"
+                id="star-1"
+                class="star__radio visuhide"
+              />
+              <input
+                type="radio"
+                name="rating"
+                value="2"
+                id="star-2"
+                class="star__radio visuhide"
+              />
+              <input
+                type="radio"
+                name="rating"
+                value="3"
+                id="star-3"
+                class="star__radio visuhide"
+              />
+              <input
+                type="radio"
+                name="rating"
+                value="4"
+                id="star-4"
+                class="star__radio visuhide"
+              />
+              <input
+                type="radio"
+                name="rating"
+                value="5"
+                id="star-5"
+                class="star__radio visuhide"
+              />
+              
+              <label class="star__item" for="star-1"
+                ><span class="visuhide">1 star</span></label
+              >
+              <label class="star__item" for="star-2"
+                ><span class="visuhide">2 stars</span></label
+              >
+              <label class="star__item" for="star-3"
+                ><span class="visuhide">3 stars</span></label
+              >
+              <label class="star__item" for="star-4"
+                ><span class="visuhide">4 stars</span></label
+              >
+              <label class="star__item" for="star-5"
+                ><span class="visuhide">5 stars</span></label
+              >
+            </span>
+            <input type="submit"  />
+              </form>
+            {% endif %}
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="card">
+                  <div class="card-header">Service {{w.ID}}</div>
+                  <div class="card-body">
+                    <p class="card-text">Service ID:{{w.ID}}</p>
+                    <p class="card-text">Customer ID:{{w.ServiceProvider_ID}}</p>
+                    <p class="card-text">Customer Name:{{w.customer.FirstName}}  {{w.customer.LastName}}</p>
+                    <p class="card-text">Customer Phone number:{{w.customer.PhoneNumber}}</p>
+                    <p class="card-text">Customer Rating:{{w.customer.rating}}</p>
+                    <p class="card-text">Works:{{w.work}}</p>
+                    <p class="card-text">Salary:{{w.Amount}}</p>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+          </ul>
+        </li>
+        <li class="a_top_hypers">
+          <h2>Last Ongoing Services</h2>
+
+          <ul>
+            {% for o in ongoing %}
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button id="myBtn" class="btn">Last Service</button>
+
+              <!-- The Modal -->
+              <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Service ID:{{o.ID}}</p>
+                  <p>Address:{{o.c.address}} ({{o.c.dis}})</p>
+                  <p>Customer ID:{{o.c.ID}}</p>
+                  <p>Customer Name:{{o.c.FirstName}}   {{o.c.LastName}}</p>
+                  <p>Customer Phone number:0{{o.c.PhoneNumber}}</p>
+                  <p>Customer Rating:{{o.c.rating}}</p>
+                  <p class="card-text">Works:{% for w in o.work %} {{w}}, {% endfor %}</p>
+                <p class="card-text">Salary:{{o.Amount}}</p>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="a_top_hypers">
+          <h2>Available Offers</h2>
+          <ul>
+            {% for o in offers %}
+           
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button class="btn">LATEST OFFER </button>
+              (check out this band new offer that came in!!)
+              <div class="w3-section">
+                <form method="POST" action="{% url 'buaAvailableWork' bua.ID %}">
+                  {% csrf_token %}
+                <input hidden name="id" value={{o.ID}}>
+                  <button type="submit" value="{{o.ID}}" class="w3-button w3-green">Accept</button>    
+                </form>
+              </div>
+              <span class="delete">&times;</span>
+              <!-- The Modal -->
+              <div class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Service ID:{{o.ID}}</p>
+                  <p>Address:{{o.c.address}} ({{o.c.dis}})</p>
+                  <p>Customer ID:{{o.c.ID}}</p>
+                  <p>Customer Name:{{o.c.FirstName}}   {{o.c.LastName}}</p>
+              
+                  <p>Customer Rating:{{o.c.rating}}</p>
+                  <p>Works:{% for w in o.work %} {{w}},{% endfor %}</p>
+                  <p>Salary:{{o.Amount}}</p>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+           
+      </ul>
+
+      <section class="footer">
+        <h1>About Us</h1>
+        <p>
+          We provide household workers based on your required services at the
+          best deal possible.
+        </p>
+        <p>Follow us on other social media sites.</p>
+        <ul class="icons">
+          <li class="icon">
+            <a href="https://facebook.com"
+              ><i class="fab fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://twitter.com"
+              ><i class="fab fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://google.com"
+              ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://linkedin.com"
+              ><i class="fab fa-linkedin" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://instagram.com"
+              ><i class="fab fa-instagram" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+
+      var i;
+      var modals = document.getElementsByClassName("modal");
+
+      var accepts = document.getElementsByClassName("accept");
+      // Get the button that opens the modal
+      var btns = document.getElementsByClassName("btn");
+
+      var deletes = document.getElementsByClassName("delete");
+
+      // Get the <span> element that closes the modal
+      var closebtns = document.getElementsByClassName("close");
+
+      var deleteBtnsHandler = function (num) {
+        return function () {
+          deletes[num].parentElement.style.display = "none";
+        };
+      };
+
+      for (i = 0; i < deletes.length; i++) {
+        deletes[i].onclick = deleteBtnsHandler(i);
+      }
+
+      // When the user clicks the button, open the modal
+      var btnsHandler = function (num) {
+        return function () {
+          modals[num].style.display = "block";
+        };
+      };
+
+      for (i = 0; i < btns.length; i++) {
+        btns[i].onclick = btnsHandler(i);
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      for (i = 0; i < accepts.length; i++) {
+        accepts[i].addEventListener("click", function () {
+          this.parentElement.parentElement.style.display = "none";
+        });
+      }
+
+      for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function () {
+          this.parentElement.parentElement.style.display = "none";
+        });
+      }
+    </script>
+  </body>
+</html>

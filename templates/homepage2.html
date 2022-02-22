@@ -1,0 +1,115 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/homepage2.css'%}" />
+    <title>KAJ LAGBE HOMEPAGE</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="homepage">
+      <div class="content">
+        <div class="topnav">
+          <img src="{% static 'images/logo.png' %}" id="logo" />
+          <div class="topnav-right">
+            <a class="active" href="{% url 'home' %}">Home</a>
+            <a href="{% url 'employeeLogin' %}">Login Employee</a>
+            <a href="{% url 'buaLogin' %}">Login Worker</a>
+            <a href="{% url 'customerLogin' %}">Login User</a>
+          <a href="{% url 'buaRegister' %}">Register Worker</a>
+          <a href="{% url 'customerRegister' %}">Register User</a>
+          </div>
+        </div>
+        <h2 style="color:white ; text-align: center ;background-color: black;">CSE-216 PROJECT(GROUP-3)</h2>
+        <div class="row">
+          <div class="column">
+            <div class="card">
+              <img   src="{% static 'images/sakib.jpg' %}" alt="Sakib" id="sakib_img" />
+              <div class="container">
+                <h5>Sakib Ahmed</h5>
+                <p class="title">Mmeber 1</p>
+                <p>Phone: 01992970327</p>
+                <p>Email: sakib123@gmail.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div class="card">
+              <img  src="{% static 'images/siam.jpg' %}" alt="Siam" id="siam_img" />
+              <div class="container">
+                <h5>Siam Al Mujadded</h5>
+                <p class="title">Member2</p>
+                <p>Phone: 01907791862</p>
+                <p>Email: mujadded1998@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="footer">
+        <h1>About Us</h1>
+        <p >
+         <h5 style="color: white;"> We provide household workers based on your required services at the
+          best deal possible.
+         </h5>
+        </p>
+        <p style="color: white;"> <h4 style="color: white;">Follow us on other social media sites.</h4></p>
+        <ul class="icons">
+          <li class="icon">
+            <a href="https://facebook.com"
+              ><i class="fab fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://twitter.com"
+              ><i class="fab fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://google.com"
+              ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://linkedin.com"
+              ><i class="fab fa-linkedin" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://instagram.com"
+              ><i class="fab fa-instagram" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

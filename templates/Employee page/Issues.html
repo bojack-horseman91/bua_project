@@ -1,0 +1,211 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/Issues.css' %}" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <title>Issues</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="employeeHome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a href="{% url 'home' %}">Home</a>
+          <a
+            href="{% url 'employeeLogin' %}"
+            >Log out</a
+          >
+          <a
+          href="{% url 'employeeProfile' emp.ID %}"
+          ><img src="{% static 'images/default.jpg' %}" alt="user" width="40" height="40" style="border-radius: 50%;" /></a
+        >
+          
+        </div>
+      </div>
+      
+      <ul id="ul_top_hypers">
+        <li class="a_top_hypers">
+          <h2 style="color: darkslategray">Technical Issues</h2>
+
+          <ul>
+            {% for t in tech %}
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button class="btn">Issue {{t.ID}}</button>
+
+              <!-- The Modal -->
+              <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Issuer's ID:</p>
+                  <p>Name:{{t.a.FirstName}} {{t.a.LastName}}</p>
+                  <p>Phone number: 0{{t.a.PhoneNumber}}</p>
+                  <p>Address: {{t.location}}</p>
+                  <p>Type: {{t.type}}</p>
+                  <p>Rating: {{t.a.rating}}</p>
+                  <p>description: {{t.Description}}</p>
+                  <form  method="POST" action="#"> 
+                    {% csrf_token %}
+                    <input name="ID"  value="{{t.ID}}" hidden/>
+                    <input hidden name="type" value="tec" />
+                    <button class="w3-button w3-green" type="submit">Issue Solved</button>
+                  </form>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+            
+          </ul>
+        </li>
+
+        <li class="a_top_hypers">
+          <h2 style="color: darkslategray">Service Issues</h2>
+
+          <ul>
+            {% for t in serv %}
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button class="btn">Issue {{t.ID}}</button>
+
+              <!-- The Modal -->
+              <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Issuer's ID:</p>
+                  <p>Name:{{t.a.FirstName}} {{t.a.LastName}}</p>
+                  <p>Phone number: 0{{t.a.PhoneNumber}}</p>
+                  <p>Address: {{t.location}}</p>
+                  <p>Type: {{t.type}}</p>
+                  <p>Rating: {{t.a.rating}}</p>
+                  <p>description: {{t.Description}}</p>
+                  <div class="w3-section">
+                    <form  method="POST" action="#"> 
+                      {% csrf_token %}
+                      <input name="ID"  value="{{t.ID}}" hidden/>
+                      <input hidden name="type" value="serv" />
+                      <button class="w3-button w3-green" type="submit">Issue Solved</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <section class="footer">
+      <h1>About Us</h1>
+      <p>
+        We provide household workers based on your required services at the best
+        deal possible.
+      </p>
+      <p>Follow us on other social media sites.</p>
+      <ul class="icons">
+        <li class="icon">
+          <a href="https://facebook.com"
+            ><i class="fab fa-facebook" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://twitter.com"
+            ><i class="fab fa-twitter" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://google.com"
+            ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://linkedin.com"
+            ><i class="fab fa-linkedin" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://instagram.com"
+            ><i class="fab fa-instagram" aria-hidden="true"></i
+          ></a>
+        </li>
+      </ul>
+    </section>
+
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+
+      var accepts = document.getElementsByClassName("w3-section");
+
+      var closebtns = document.getElementsByClassName("close");
+
+      var i;
+
+      var modals = document.getElementsByClassName("modal");
+
+      var btns = document.getElementsByClassName("btn");
+
+      for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function () {
+          this.parentElement.parentElement.style.display = "none";
+        });
+      }
+
+      var btnsHandler = function (num) {
+        return function () {
+          modals[num].style.display = "block";
+        };
+      };
+
+      for (i = 0; i < btns.length; i++) {
+        btns[i].onclick = btnsHandler(i);
+      }
+
+      for (i = 0; i < accepts.length; i++) {
+        accepts[i].addEventListener("click", function () {
+          this.parentElement.parentElement.parentElement.style.display = "none";
+        });
+      }
+    </script>
+  </body>
+</html>

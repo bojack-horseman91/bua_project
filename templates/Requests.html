@@ -1,0 +1,191 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="{% static 'css/Requests.css' %}" />
+    <title>Customer's Requests</title>
+  </head>
+  <body>
+    <div class="customerhome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a
+            class="active"
+            href="D:\L-2 T-2\CSE 216\Term Project\FrontEnd\Customer Page\Customer home.html"
+            >Home</a
+          >
+          <a
+            href="D:\L-2 T-2\CSE 216\Term Project\FrontEnd\login for Customer.html"
+            >Log out</a
+          >
+          <a href="Ongoing services.html">Ongoing Services</a>
+          <a href="Completed jobs.html">Completed Jobs</a>
+        </div>
+      </div>
+
+      <h2>Your Requests</h2>
+
+      <ul>
+        <li>
+          <!-- Trigger/Open The Modal -->
+          <button class="btn">Service 1</button>
+          <span class="delete">&times;</span>
+
+          <!-- The Modal -->
+          <div class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h4>Requested Works:</h4>
+              <p>Works</p>
+              <p>Interested Workers:</p>
+              <ul>
+                <li>
+                  <p>Worker ID:</p>
+                  <p>Worker Name:</p>
+                  <p>Worker Phone number:</p>
+                  <p>Worker Rating:</p>
+                  <p>Works:</p>
+                  <p>Salary:</p>
+                  <div class="w3-section">
+                    <button class="w3-button w3-green">Accept</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Create New Request</h2>
+
+      <!-- Trigger/Open The Modal -->
+      <button class="btn">Click here</button>
+
+      <!-- The Modal -->
+      <div class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h4>Request Desired Works:</h4>
+          <p>Works Available</p>
+          <form method="POST">
+            {% csrf_token %}
+          <div class="multi-selector">
+            <div class="list">
+              <ul>
+                {% for service in services %}
+                <li>
+                  <label for="{{service.Service_ID}}" class="task">
+                    <input
+                      type="checkbox"
+                      class="checkbox"
+                      name="{{service.Service_ID}}"
+                      id="{{service.Service_ID}}"
+                    />
+                    {{service.Name}}
+                    <span>10 mins</span>
+                  </label>
+                </li>
+                {% endfor %}
+              </ul>
+              <h5>Total Amount (Taka)</h5>
+              <input
+                type="number"
+                placeholder="Amount"
+                id="amount"
+                value="0"
+                readonly
+                name="amount"
+              />
+            </div>
+          </div>
+          <div id="newrequest">
+            <button type="submit" class="w3-button w3-green">Confirm</button>
+          </div>
+          </form>>
+        </div>
+      </div>
+
+      <script>
+        var accepts = document.getElementsByClassName("w3-section");
+
+        var checkboxes = document.getElementsByClassName("checkbox");
+
+        var deletes = document.getElementsByClassName("delete");
+
+        var closebtns = document.getElementsByClassName("close");
+
+        var i;
+
+        var modals = document.getElementsByClassName("modal");
+
+        var btns = document.getElementsByClassName("btn");
+
+        var orderAmount = document.getElementById("amount");
+
+        for (i = 0; i < closebtns.length; i++) {
+          closebtns[i].addEventListener("click", function () {
+            this.parentElement.parentElement.style.display = "none";
+          });
+        }
+
+        for (i = 0; i < deletes.length; i++) {
+          deletes[i].addEventListener("click", function () {
+            this.parentElement.style.display = "none";
+          });
+        }
+
+        var btnsHandler = function (num) {
+          return function () {
+            modals[num].style.display = "block";
+          };
+        };
+
+        for (i = 0; i < btns.length; i++) {
+          btns[i].onclick = btnsHandler(i);
+        }
+
+        for (i = 0; i < accepts.length; i++) {
+          accepts[i].addEventListener("click", function () {
+            this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display =
+              "none";
+          });
+        }
+
+        var newrequest = document.getElementById("newrequest");
+        newrequest.addEventListener("click", function () {
+          if (atLeastOneCheckboxIsChecked())
+            this.parentElement.parentElement.style.display = "none";
+          else alert("You need to select at least one job!");
+        });
+
+        function atLeastOneCheckboxIsChecked() {
+          const checkboxes = Array.from(document.querySelectorAll(".checkbox"));
+          return checkboxes.reduce((acc, curr) => acc || curr.checked, false);
+        }
+
+        var checkboxesEventHandler = function () {
+          return function () {
+            var j;
+            var sum = 0;
+            for (j = 0; j < checkboxes.length; j++) {
+              if (checkboxes[j].checked) sum = parseInt(sum, 10) + 10;
+              orderAmount.value = sum;
+            }
+          };
+        };
+
+        for (i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].onclick = checkboxesEventHandler();
+        }
+      </script>
+    </div>
+  </body>
+</html>

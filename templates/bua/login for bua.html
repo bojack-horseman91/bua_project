@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Log in page for Term Project</title>
+    <link rel="stylesheet" href="{% static 'css/login for all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="center">
+      <h1>Login For Worker</h1>
+      <form method="post">
+        {% csrf_token %}
+        <div class="txt_field">
+          <input type="number" name="phoneNumber" required  value='' placeholder="Write your phone number"/>
+          <span></span>
+          <label>Phone Number</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name='password' required />
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+        <input type="submit" value="Login" />
+        {% if error_Message %}
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        UNIDENTIDIED
+      </div>
+      {% endif %}
+        <div class="signup_link">
+          Not a member? <a href="{%url 'buaRegister' %}">Signup</a>
+        </div>
+        <a href="{% url 'home' %}">Back to home</a>
+      </form>
+      
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+  </body>
+</html>

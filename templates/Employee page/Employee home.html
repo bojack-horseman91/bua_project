@@ -1,0 +1,208 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/Employee home.css' %}" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <title>EMPLOYEE HOMEPAGE</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="employeeHome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a
+            href="{% url 'employeeLogin' %}"
+            >Log out</a
+          >
+          <a href="{% url 'issue' emp.ID %}">All issues</a>
+        </div>
+      </div>
+      <h2 style="text-align: center">User Profile</h2>
+
+      <div class="wrapper">
+        <div class="left">
+          <img src="{% static 'images/default.jpg' %}" alt="user" width="100" height="100" style="border-radius: 50%;" />
+          <h4>{{emp.FirstName}} {{emp.LastName}}</h4>
+        </div>
+        <div class="right">
+          <div class="info">
+            <div class="info_data">
+              <div class="data">
+                <h4>Email</h4>
+                <p>{{emp.Email}}</p>
+              </div>
+              <div class="data">
+                <h4>Phone</h4>
+                <p>0{{emp.PhoneNumber}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="others">
+            <div class="others_data">
+              <div class="data">
+                <h4>Position</h4>
+                <p>details</p>
+              </div>
+              <div class="data">
+                <h4>Address</h4>
+                <p>details</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+    <section class="footer">
+      <h1>About Us</h1>
+      <p>
+        We provide household workers based on your required services at the best
+        deal possible.
+      </p>
+      <p>Follow us on other social media sites.</p>
+      <ul class="icons">
+        <li class="icon">
+          <a href="https://facebook.com"
+            ><i class="fab fa-facebook" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://twitter.com"
+            ><i class="fab fa-twitter" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://google.com"
+            ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://linkedin.com"
+            ><i class="fab fa-linkedin" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li class="icon">
+          <a href="https://instagram.com"
+            ><i class="fab fa-instagram" aria-hidden="true"></i
+          ></a>
+        </li>
+      </ul>
+    </section>
+
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+
+      var accepts = document.getElementsByClassName("w3-section");
+
+      var checkboxes = document.getElementsByClassName("checkbox");
+
+      var deletes = document.getElementsByClassName("delete");
+
+      var closebtns = document.getElementsByClassName("close");
+
+      var i;
+
+      var modals = document.getElementsByClassName("modal");
+
+      var btns = document.getElementsByClassName("btn");
+
+      var orderAmount = document.getElementById("amount");
+
+      for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function () {
+          this.parentElement.parentElement.style.display = "none";
+        });
+      }
+
+      for (i = 0; i < deletes.length; i++) {
+        deletes[i].addEventListener("click", function () {
+          this.parentElement.style.display = "none";
+        });
+      }
+
+      var btnsHandler = function (num) {
+        return function () {
+          modals[num].style.display = "block";
+        };
+      };
+
+      for (i = 0; i < btns.length; i++) {
+        btns[i].onclick = btnsHandler(i);
+      }
+
+      for (i = 0; i < accepts.length; i++) {
+        accepts[i].addEventListener("click", function () {
+          this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display =
+            "none";
+        });
+      }
+
+      var newrequest = document.getElementById("newrequest");
+      newrequest.addEventListener("click", function () {
+        if (atLeastOneCheckboxIsChecked())
+          this.parentElement.parentElement.style.display = "none";
+        else alert("You need to select at least one job!");
+      });
+
+      function atLeastOneCheckboxIsChecked() {
+        const checkboxes = Array.from(document.querySelectorAll(".checkbox"));
+        return checkboxes.reduce((acc, curr) => acc || curr.checked, false);
+      }
+
+      var checkboxesEventHandler = function () {
+        return function () {
+          var j;
+          var sum = 0;
+          for (j = 0; j < checkboxes.length; j++) {
+            if (checkboxes[j].checked) sum = parseInt(sum, 10) + 10;
+            orderAmount.value = sum;
+          }
+        };
+      };
+
+      for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].onclick = checkboxesEventHandler();
+      }
+    </script>
+  </body>
+</html>

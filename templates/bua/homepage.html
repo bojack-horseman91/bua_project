@@ -1,0 +1,97 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/homepage.css'%}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <title>KAJ LAGBE HOMEPAGE</title>
+  </head>
+
+  <body>
+    <div class="homepage">
+      <div class="topnav">
+        <img src="{% static 'images/logo.png' %}" id="logo"  />
+        <div class="topnav-right">
+          <a class="active" href="{% url 'home' %}">Home</a>
+          <a href="{% url 'buaLogin' %}">Login Worker</a>
+          <a href="{% url 'customerLogin' %}">Login User</a>
+          <a href="{% url 'buaRegister' %}">Register Worker</a>
+          <a href="{% url 'customerRegister' %}">Register User</a>
+        </div>
+      </div>
+      <h2 style="text-align: center">Contact Us</h2>
+      <div class="d-flex align-content-sm-center ">
+        <div class="column">
+          <div class="card">
+            <img
+              src="{% static 'images/sakib.jpg' %}"
+              alt="Sakib"
+              style="width: 100%"
+              id="sakib_img"
+            />
+            <div class="container">
+              <h2>Sakib Ahmed</h2>
+              <p class="title">Co-Founder</p>
+              <p>Phone: 01992970327</p>
+              <p>Email: sakib123@gmail.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column ">
+          <div class="card">
+            <img
+              src="{% static 'images/siam.jpg' %}"
+              alt="Siam"
+              style="width: 100%"
+              id="siam_img"
+            />
+            <div class="container">
+              <h2>Siam Al Mujadded</h2>
+              <p class="title">Founder</p>
+              <p>Phone: 01907791862</p>
+              <p>Email: mujadded1998@gmail.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="footer">
+        <h1>About Us</h1>
+        <p>
+          We provide household workers based on your required services at the
+          best deal possible.
+        </p>
+        <p>Follow us on other social media sites.</p>
+        <div class="icons">
+          <a href="https://facebook.com" class="facebook">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="https://twitter.com" class="twitter">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a href="https://linkedin.com" class="linkedin">
+            <i class="fa fa-linkedin"></i>
+          </a>
+          <a href="https://google.com" class="google">
+            <i class="fa fa-google"></i>
+          </a>
+          <a href="https://instagram.com" class="instagram">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a href="https://youtube.com" class="youtube">
+            <i class="fa fa-youtube"></i>
+          </a>
+        </div>
+      </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

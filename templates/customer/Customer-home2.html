@@ -1,0 +1,412 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/Customer home2.css' %}" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <title>CUSTOMER HOMEPAGE</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="customerhome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a
+            class="active"
+            href="{% url 'home' %}"
+            >Home</a
+          >
+          <a
+            href="{% url 'customerLogin' %}"
+            >Log out</a
+          >
+          <a href="{% url 'customerOngoing' customer.ID %}">Ongoing Services</a>
+          <a href="{% url 'customerRequest' customer.ID  %}">Your Requests</a>
+          <a href="{% url 'customerCompleted' customer.ID %}">Completed Jobs</a>
+        </div>
+      </div>
+      <div id="mySidenav"  class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+          >&times;</a
+        >
+        <a href="{% url 'customerProfile' customer.ID  %}">Customer Profile</a>
+        <a href="{% url 'customerServIssue' customer.ID  %}">Service Issues</a>
+        <a href="{% url 'customerTechIssue' customer.ID  %}">Technical Issues</a>
+      </div>
+      <span
+        style="color: white; font-size: 30px; cursor: pointer"
+        onclick="openNav()"
+        >&#9776;</span
+      >
+
+      <ul id="ul_top_hypers">
+        <li class="a_top_hypers">
+          <h2 style="color: darkslategray">Last Completed Jobs</h2>
+          
+          <ul>
+            {% for w in completed%}
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button id="myBtn" class="btn">Service {{completed.ID}}</button>
+              {% if w.rating == -1 %}
+              <h4>Give Rating</h4>
+              <form method="POST" action="{% url 'customerCompleted' customer.ID %}" >
+                {% csrf_token %}
+              <span class="star__container">
+               <input type="text" hidden name="trans" value="{{completed.ID}}" >
+               <input type="text" hidden name="bua" value="{{completed.bua.ID}}" >
+                <input
+                  type="radio"
+                  name="rating"
+                  value="1"
+                  id="star-1"
+                  class="star__radio visuhide"
+                />
+                <input
+                  type="radio"
+                  name="rating"
+                  value="2"
+                  id="star-2"
+                  class="star__radio visuhide"
+                />
+                <input
+                  type="radio"
+                  name="rating"
+                  value="3"
+                  id="star-3"
+                  class="star__radio visuhide"
+                />
+                <input
+                  type="radio"
+                  name="rating"
+                  value="4"
+                  id="star-4"
+                  class="star__radio visuhide"
+                />
+                <input
+                  type="radio"
+                  name="rating"
+                  value="5"
+                  id="star-5"
+                  class="star__radio visuhide"
+                />
+                
+                <label class="star__item" for="star-1"
+                  ><span class="visuhide">1 star</span></label
+                >
+                <label class="star__item" for="star-2"
+                  ><span class="visuhide">2 stars</span></label
+                >
+                <label class="star__item" for="star-3"
+                  ><span class="visuhide">3 stars</span></label
+                >
+                <label class="star__item" for="star-4"
+                  ><span class="visuhide">4 stars</span></label
+                >
+                <label class="star__item" for="star-5"
+                  ><span class="visuhide">5 stars</span></label
+                >
+              </span>
+              <input type="submit"  />
+                </form>
+              {% endif %}
+              <!-- The Modal -->
+              <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div class="card">
+                    <div class="card-header">Service {{w.ID}}</div>
+                    <div class="card-body">
+                      <p class="card-text">Service ID:{{w.ID}}</p>
+                      <p class="card-text">Customer ID:{{w.ServiceProvider_ID}}</p>
+                      <p class="card-text">Customer Name:{{w.bua.FirstName}}  {{w.bua.LastName}}</p>
+                      <p class="card-text">Customer Phone number:{{w.bua.PhoneNumber}}</p>
+                      <p class="card-text">Customer Rating:{{w.bua.Rating}}</p>
+                      <p class="card-text">Works:{{w.work}}</p>
+                      <p class="card-text">Salary:{{w.Amount}}</p>
+                      {% if w.buaRating != -1 %}
+                    <p class="card-text">Given Rating: <span class="fa fa-star checked">{{w.buaRating}}</span></p>
+                    {% endif %}
+                    </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class="a_top_hypers">
+          <h2 style="color: darkslategray">Last Ongoing Services</h2>
+            
+          <ul>
+            {% for w in ongoing %}
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button class="btn">Last Service</button>
+              <!-- The Modal -->
+              <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div class="card">
+                    <div class="card-header">Service {{w.ID}}</div>
+                    <div class="card-body">
+                      <p class="card-text">Service ID:{{w.ID}}</p>
+                      <p class="card-text">Customer ID:{{w.ServiceProvider_ID}}</p>
+                      <p class="card-text">Customer Name:{{w.bua.FirstName}}  {{w.bua.LastName}}</p>
+                      <p class="card-text">Customer Phone number:{{w.bua.PhoneNumber}}</p>
+                      <p class="card-text">Customer Rating:{{w.bua.Rating}}</p>
+                      <p class="card-text">Works:{{w.work}}</p>
+                      <p class="card-text">Salary:{{w.Amount}}</p>
+                    </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class="a_top_hypers">
+          <h2 style="color: darkslategray">Your Last made Requests</h2>
+          
+
+          <ul>
+            <li>
+              <!-- Trigger/Open The Modal -->
+              <button class="btn">Last Service</button>
+              <span class="delete">&times;</span>
+
+              <!-- The Modal -->
+              <div class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <h4>Requested Works:</h4>
+                  <p>Works</p>
+                  <p>Interested Workers:</p>
+                  <ul>
+                    {% for bua in previousRequest.buas %}
+                    <li>
+                      <p>Worker ID:{{bua.ID}}</p>
+                      <p>Worker Name:{{bua.FirstName}} {{bua.LastName}}</p>
+                      <p>Worker Rating:{{bua.Rating}}</p>
+                    
+                      <div class="w3-section">
+                        <button class="w3-button w3-green"><a href="{% url 'customerRequest' customer.ID  %}">Go to Requests to Accept</a></button>
+                      </div>
+                    </li>
+                    {% endfor %}
+                    
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <li class="a_top_hypers">
+          <h2 style="color: darkslategray">Create New Request</h2>
+
+          <!-- Trigger/Open The Modal -->
+          <button class="btn">Click here</button>
+
+          <!-- The Modal -->
+          <div class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h4>Request Desired Works:</h4>
+              <p>Works Available</p>
+              <form method="POST" action="#">
+                {% csrf_token %}
+              <div class="multi-selector">
+                <div class="list">
+                  <ul>
+                    {% for t in task %}
+                    <li>
+                      <label for="{{t.Service_ID}}" class="task">
+                        <input
+                          type="checkbox"
+                          class="checkbox"
+                          name="{{t.Service_ID}}"
+                          id="task{{t.service_ID}}"
+                        />
+                        {{t.Name}}
+                        <span>10 mins</span>
+                      </label>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                  <h5>Total Amount (Taka)</h5>
+                  <input
+                    name="amount"
+                    type="number"
+                    placeholder="Amount"
+                    id="amount"
+                    value="0"
+                    readonly
+                  />
+                </div>
+              </div>
+            
+              <div id="newrequest">
+                <button name="createRequest" type=" submit" class="w3-button w3-green" >Confirm</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <section class="footer">
+        <h1>About Us</h1>
+        <p>
+          We provide household workers based on your required services at the
+          best deal possible.
+        </p>
+        <p>Follow us on other social media sites.</p>
+        <ul class="icons">
+          <li class="icon">
+            <a href="https://facebook.com"
+              ><i class="fab fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://twitter.com"
+              ><i class="fab fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://google.com"
+              ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://linkedin.com"
+              ><i class="fab fa-linkedin" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://instagram.com"
+              ><i class="fab fa-instagram" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+
+      var accepts = document.getElementsByClassName("w3-section");
+
+      var checkboxes = document.getElementsByClassName("checkbox");
+
+      var deletes = document.getElementsByClassName("delete");
+
+      var closebtns = document.getElementsByClassName("close");
+
+      var i;
+
+      var modals = document.getElementsByClassName("modal");
+
+      var btns = document.getElementsByClassName("btn");
+
+      var orderAmount = document.getElementById("amount");
+
+      for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].addEventListener("click", function () {
+          this.parentElement.parentElement.style.display = "none";
+        });
+      }
+
+      for (i = 0; i < deletes.length; i++) {
+        deletes[i].addEventListener("click", function () {
+          this.parentElement.style.display = "none";
+        });
+      }
+
+      var btnsHandler = function (num) {
+        return function () {
+          modals[num].style.display = "block";
+        };
+      };
+
+      for (i = 0; i < btns.length; i++) {
+        btns[i].onclick = btnsHandler(i);
+      }
+
+      for (i = 0; i < accepts.length; i++) {
+        accepts[i].addEventListener("click", function () {
+          this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display =
+            "none";
+        });
+      }
+
+      var newrequest = document.getElementById("newrequest");
+      newrequest.addEventListener("click", function () {
+        if (atLeastOneCheckboxIsChecked())
+          this.parentElement.parentElement.style.display = "none";
+        else alert("You need to select at least one job!");
+      });
+
+      function atLeastOneCheckboxIsChecked() {
+        const checkboxes = Array.from(document.querySelectorAll(".checkbox"));
+        return checkboxes.reduce((acc, curr) => acc || curr.checked, false);
+      }
+
+      var checkboxesEventHandler = function () {
+        return function () {
+          var j;
+          var sum = 0;
+          for (j = 0; j < checkboxes.length; j++) {
+            if (checkboxes[j].checked) sum = parseInt(sum, 10) + 10;
+            orderAmount.value = sum;
+          }
+        };
+      };
+
+      for (i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].onclick = checkboxesEventHandler();
+      }
+    </script>
+  </body>
+</html>

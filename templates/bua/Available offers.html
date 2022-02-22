@@ -1,0 +1,148 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="{% static 'css/Available offers.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Available Offers</title>
+  </head>
+  <body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="buahome">
+      <div class="topnav">
+        <img
+          src="{% static 'images/logo.png' %}"
+          id="logo"
+        />
+        <div class="topnav-right">
+          <a
+            href="{% url 'buaHome' bua.ID %}"
+            >Home</a
+          >
+          <a href="{% url 'buaLogin' %}"
+            >Log out</a
+          >
+          <a href="{% url 'buaOngoingWork' bua.ID %}">Ongoing Services</a>
+          <a href="{% url 'buaCompletedWork' bua.ID %}">Completed Jobs</a>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <h2 style="color: aliceblue;">Available Offers</h2>
+        <ul>
+           {% for w in work %}
+        <li>
+          <div class="content card">
+            <span class="close">&times;</span>
+            <form method="POST">
+              {% csrf_token %}
+            <div class="card-header">Service ID:<input readonly name="id" value={{w.ID}}></div>
+            <div class="card-body">
+            <p class="card-text">Address:{{w.address}}</p>
+            <p class="card-text">Customer ID:{{w.Customer_ID}}</p>
+            <p class="card-text">Customer Name:{{w.customerName}}</p>
+            <p class="card-text">Customer Rating:</p>
+            <p class="card-text">Distance:{{w.distance}}</p>
+            <p >Works:{{w.work}}</p>
+            <p>Salary:{{w.Amount}}</p>
+            </div>
+
+              <div class="w3-section">
+                
+                  <button type="submit" value="{{w.ID}}" class="w3-button w3-green">Accept</button>    
+                  
+                </div>
+              </form>
+            </div>
+            
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <section class="footer">
+        <p>Follow us</p>
+        <ul class="icons">
+          <li class="icon">
+            <a href="https://facebook.com"
+              ><i class="fab fa-facebook" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://twitter.com"
+              ><i class="fab fa-twitter" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://google.com"
+              ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://linkedin.com"
+              ><i class="fab fa-linkedin" aria-hidden="true"></i
+            ></a>
+          </li>
+          <li class="icon">
+            <a href="https://instagram.com"
+              ><i class="fab fa-instagram" aria-hidden="true"></i
+            ></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <script>
+      var contents = document.getElementsByClassName("content");
+
+      var btns = document.getElementsByClassName("btn");
+
+      var accepts = document.getElementsByClassName("w3-section");
+
+      var closebtns = document.getElementsByClassName("close");
+
+      var i;
+
+      for (i = 0; i < accepts.length; i++) {
+        accepts[i].addEventListener("click", function () {
+          this.parentElement.parentElement.style.display = "none";
+        });
+      }
+
+      var closebtnsHandler = function (num) {
+        return function () {
+          closebtns[num].parentElement.parentElement.style.display = "none";
+        };
+      };
+
+      for (i = 0; i < closebtns.length; i++) {
+        closebtns[i].onclick = closebtnsHandler(i);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!---<title> Sign Up Form for users. </title>--->
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/alert.css' %}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Sign-up-User.css' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+  
+  <div class="container" >
+    <div class="title" >Registration For Worker</div>
+    <div class="content">
+      <form action="#" method="POST">
+        {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">First Name</span>
+            <input type="text" placeholder="Enter your first name" required name='firstName'>
+          </div>
+		  <div class="input-box">
+            <span class="details">Last Name</span>
+            <input type="text" placeholder="Enter your last name" required name='lastName'>
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" placeholder="Enter your number" required name='phoneNumber'>
+            {% if  uniquePhoneError %}
+            
+            <div class="alert">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';"
+                >&times;</span
+              >
+              This Phone Number already has an account.
+            </div>
+            {% endif %}
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="text" placeholder="Enter your password" required name='pass'>
+            {% if  passwordError %}
+            <div class="alert">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';"
+                >&times;</span
+              >
+              PASSWORD SHOULD MATCH
+            </div>
+            {% endif %}
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="text" placeholder="Confirm your password" required name='confirmPass'>
+          </div>
+        </div>
+		<div class="multi-selector">
+			<p>Select the works you want to do</p>
+			<!---------List of checkboxes and options----------->
+			<div class="list">
+				{% for t in task %}
+        <input type="checkbox" name={{t.Service_ID}}>
+        <label for={{t.Service_ID}} class="task" style="font-family:georgia,garamond,serif; color :red; font-weight: 1000;">
+					TASK-{{t.Service_ID}} 
+					<span>{{t.Name}}</span>
+				</label>
+        
+        {% endfor %}
+			</div>
+		</div>
+          
+        <div class="gender-details">
+          <input type="radio" name="Male" id="dot-1">
+          <input type="radio" name="Female" id="dot-2">
+          <input type="radio" name="Not" id="dot-3">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="gender">Male</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="gender">Female</span>
+          </label>
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="gender">Prefer not to say</span>
+            </label>
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value='REGISTER' >
+        </div>
+        <div class="signup_link">
+          Already a member? <a href="{%url 'buaLogin' %}">Login</a>
+        </div>
+        <a href="{% url 'home' %}">Back to home</a>
+      </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
